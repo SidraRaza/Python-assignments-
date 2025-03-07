@@ -4,10 +4,8 @@ import os
 from io import BytesIO
 import plotly.express as px
 
-# Page Configuration
 st.set_page_config(page_title="🚀 Data Sweeper", layout='wide')
 
-# Custom Styling
 st.markdown(
     """
     <style>
@@ -52,12 +50,11 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Header
+
 st.markdown("<p class='title'>🚀 Data Sweeper</p>", unsafe_allow_html=True)
 st.markdown("<p class='sub-title'>🔄 Transform CSV & Excel files with built-in data cleaning, visualization, and smart conversions!</p>", unsafe_allow_html=True)
 st.divider()
 
-# File Upload Section
 st.subheader("📂 Upload your Files")
 uploaded_files = st.file_uploader(
     "🗂 Drag & drop or browse your files (CSV/XLSX)", 
@@ -69,7 +66,6 @@ if uploaded_files:
     for file in uploaded_files:
         file_extension = os.path.splitext(file.name)[-1].lower()
         
-        # Read File
         if file_extension == ".csv":
             df = pd.read_csv(file)
         elif file_extension == ".xlsx":
@@ -78,12 +74,10 @@ if uploaded_files:
             st.error(f"❌ Invalid file format: {file_extension}. Please upload a CSV or Excel file.")
             continue
         
-        # File Info
         st.divider()
         st.markdown(f"<p class='file-info'>📄 **File Name:** {file.name} | 📏 **Size:** {file.size / 1024:.2f} KB</p>", unsafe_allow_html=True)
         st.dataframe(df.head())
 
-        # Data Cleaning Section
         with st.expander("🧹 Data Cleaning Options", expanded=False):
             col1, col2 = st.columns(2)
             
@@ -99,12 +93,10 @@ if uploaded_files:
                     df[numeric_cols] = df[numeric_cols].fillna(df[numeric_cols].mean())
                     st.success("✅ **Missing values filled with column mean!** 📊")
 
-        # Column Selection
         with st.expander("🔍 Select Columns to Convert", expanded=False):
             columns = st.multiselect(f"📌 Choose Columns for {file.name}", df.columns, default=df.columns)
             df = df[columns]
 
-        # Data Visualization (Enhanced with Plotly)
         with st.expander("📊 Data Visualization", expanded=False):
             if st.checkbox(f"📉 Show Charts for {file.name}"):
                 numeric_cols = df.select_dtypes(include=['number']).columns

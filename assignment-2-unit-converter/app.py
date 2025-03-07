@@ -96,4 +96,4 @@ elif conversion_type == "Temperature":
     result = convert_temperature(value, from_unit, to_unit)
 
 st.markdown(f"<div class='result-box'>{value} {from_unit} is equal to {result:.2f} {to_unit}</div>", unsafe_allow_html=True)
-st.markdown("<div class='footer'>Developed with ❤️ by <a href='https://github.com/SidraRaza' target='_blank' style='color: white;'>Sidra Raza</a></div>", unsafe_allow_html=True)
+st.markdown("<div class='footer'>Developed with ❤️ by <a href='https://github.com/SidraRaza' target='_blank' style='color: white;'>Sidra Raza</a></div>", unsafe_allow_html=True) 
