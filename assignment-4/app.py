@@ -139,7 +139,7 @@ elif menu == "➕ Add Book":
     title = st.text_input("Title")
     author = st.text_input("Author")
     genre = st.text_input("Genre")
-    year = st.number_input("Year", min_value=1000, max_value=2025, step=1)
+    year = st.number_input("Year", min_value=2000, max_value=2025, step=1)
     if st.button("Add Book"):
         add_book(title, author, genre, year)
 
