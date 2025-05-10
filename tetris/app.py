@@ -1,7 +1,7 @@
 import streamlit as st
 import random
 
-GRID_HEIGHT = 20
+GRID_HEIGHT = 13
 GRID_WIDTH = 10
 
 TETROMINOS = {
