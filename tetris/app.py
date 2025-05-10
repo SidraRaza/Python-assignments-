@@ -2,9 +2,8 @@ import streamlit as st
 import random
 
 GRID_HEIGHT = 20
-GRID_WIDTH = 50
+GRID_WIDTH = 10
 
-# Define tetromino shapes
 TETROMINOS = {
     "I": [[1, 1, 1, 1]],
     "O": [[1, 1], [1, 1]],
@@ -35,7 +34,7 @@ def place_tetromino(grid, tetromino):
     return temp_grid
 
 def draw_grid(grid):
-    html = "<div style='display: grid; grid-template-columns: repeat({}, 20px); gap: 2px;'>".format(GRID_WIDTH)
+    html = "<div style='display: grid; grid-template-columns: repeat({}, 20px); gap: 2px; justify-content: center;'>".format(GRID_WIDTH)
     for row in grid:
         for cell in row:
             color = "#facc15" if cell else "#1e293b"
@@ -52,15 +51,31 @@ def main():
                 height: 100vh;
                 margin: 0;
                 padding: 0;
+                background-color: #0f172a;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                background-color: #0f172a;
             }
             h1, p {
-                text-align: center;
                 color: white;
+                text-align: center;
+            }
+            .button-row {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                margin-top: 1rem;
+                flex-wrap: wrap;
+            }
+            button {
+                background-color: #2563eb;
+                color: white;
+                border: none;
+                padding: 0.5rem 1rem;
+                border-radius: 8px;
+                font-size: 16px;
+                cursor: pointer;
             }
         </style>
     """, unsafe_allow_html=True)
@@ -78,7 +93,9 @@ def main():
     temp_grid = place_tetromino(grid, tetro)
     draw_grid(temp_grid)
 
-    st.markdown("### 🔧 Controls")
+    # Buttons in a horizontal line
+    st.markdown('<div class="button-row">', unsafe_allow_html=True)
+
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         if st.button("⬅️ Left"):
@@ -95,13 +112,12 @@ def main():
             if tetro["x"] + len(rotated[0]) <= GRID_WIDTH and tetro["y"] + len(rotated) <= GRID_HEIGHT:
                 tetro["shape"] = rotated
 
-    st.markdown("### ")
-    st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+
     if st.button("🔁 Restart Game"):
         st.session_state.grid = create_grid()
         st.session_state.tetromino = create_tetromino()
         st.experimental_rerun()
-    st.markdown("</div>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
